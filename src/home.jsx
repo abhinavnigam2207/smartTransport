@@ -115,7 +115,8 @@ class App extends Component {
               </PlacesAutocomplete>
             </div>
           </div>
-          <div>
+          <div className={"resultStops "+ (this.state.nearest.length ? '': 'hide')}>
+            <h3>The nearest bus stops to your destination are : </h3>
             {this.state.nearest.map(stop => 
               <div>{stop.Stop}</div>
             )}

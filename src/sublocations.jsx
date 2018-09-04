@@ -21,15 +21,13 @@ export class Sublocations extends Component {
 
     render() {
         return (
-            <div className="SelectLocation2"> 
-                <center> 
-                    <b>Please select your sub-location</b>
-                    <select name='List2' id="List2">
-                    {this.state.sublocations.map(sub => 
-                        <option value={sub}>{sub}</option>
-                    )}
-                    </select>
-                </center>
+            <div className="mt-2"> 
+                <b>Please select your sub-location: </b>
+                <select name='List2'>
+                {this.state.sublocations.map(sub => 
+                    <option value={sub}>{sub}</option>
+                )}
+                </select>
             </div>
         );
     }

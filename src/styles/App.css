@@ -21,7 +21,7 @@ body{
 }
 
 .SearchBoxComp {
-   margin-top: 12%;
+   margin-top: 10%;
    margin-left: 25%;
    margin-right: 25%;
  }
@@ -77,17 +77,28 @@ body{
 }
 
 #AllRoutesHyperlink {
-  margin-top: 23%;
+  margin-top: 7%;
   margin-left: 45%;
   font-size: 150%;
   color: black;
 }
 
+.resultStops{
+  color: #0e05ce;
+  font-weight: 600;
+}
 
+.mt-1{
+  margin-top: 1%;
+}
 
+.mt-5{
+  margin-top: 5%;
+}
 
-
-
+.pl-5{
+  padding-left: 5%;
+}
 
 
 
@@ -112,12 +123,6 @@ body{
 * 
  {
     box-sizing: border-box;
-}
-
-
-.Page2 {
-
-    margin-bottom: 605px;
 }
 
 #SelectLocation {

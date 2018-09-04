@@ -13,7 +13,7 @@ class Routes extends Component {
     }
 
     componentDidMount() {
-        fetchResource('routes').then((res)=>{
+        fetchResource('allRoutes').then((res)=>{
             this.setState({
                 routes: res
             })
@@ -22,15 +22,25 @@ class Routes extends Component {
 
     render() {
         return (
-            <div className = "Page2">
-                <div className="SelectLocation"> <center><b>Please select your location: </b>
-                    <select name='List1' id="List1" >
-                        <option value="Gurgaon">Gurgaon</option>
-                        <option value="Bengalore">Banglore</option>
-                    </select>
-                    </center>
-                </div> 
-                <Sublocations></Sublocations>
+            <div className="mt-5">
+                <div className="row">
+                    <div className="col-2"></div>
+                    <div className="col-8 pl-5"> 
+                        <b>Please select your location: </b>
+                        <select name='List1' >
+                            <option value="Gurgaon">Gurgaon</option>
+                            <option value="Bangalore">Bangalore</option>
+                        </select>
+                        <Sublocations></Sublocations>
+                    </div>
+                    <div className="col-2"></div>
+                </div>
+                <div className="row">
+                    <div className="col-2"></div>
+                    <div className="col-6"></div>
+                    <div className="col-2"></div>
+                </div>
+                 
                 <section>
                     <nav>
                         <div>
