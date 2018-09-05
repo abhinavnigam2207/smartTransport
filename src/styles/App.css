@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i');
 
+* 
+{
+  box-sizing: border-box;
+}
+
 body{
   width: 100%;
   height: 100%;
@@ -17,17 +22,17 @@ body{
 }
 
 .bg-white {
- background: white;
+  background: white;
 }
 
-.SearchBoxComp {
-   margin-top: 10%;
-   margin-left: 25%;
-   margin-right: 25%;
- }
+.searchBoxComp {
+  margin-top: 10%;
+  margin-left: 25%;
+  margin-right: 25%;
+}
 
 .searchTitle {
- margin-bottom: 3%;
+  margin-bottom: 3%;
 }
 
 .desiredLocation {
@@ -76,7 +81,7 @@ body{
   text-align: left;
 }
 
-#AllRoutesHyperlink {
+.allRoutesHyperlink {
   margin-top: 7%;
   margin-left: 45%;
   font-size: 150%;
@@ -100,109 +105,32 @@ body{
   padding-left: 5%;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-* 
- {
-    box-sizing: border-box;
+.p1{
+  padding: 1%;
 }
 
-#SelectLocation {
-    margin-top: 63px;
-    font-size: 150%;
+.route-container{
+  background: #C39677;
+  padding: 2%;
 }
 
-/* Create two columns/boxes that floats next to each other */
-nav {
-    float: left;
-    width: 15%;
-    background: #C39677;
-    padding: 1.5%;
-	border: 1px solid green;
-	margin: 1.5%;
-text-align:center;
-}
-
-aside {
-    float: left;
-    width: 15%;
-    background: #C39677;
-    padding: 1.5%;
-	border: 1px  solid green;
-	margin: 1.5%;
-}
-
-article {
-    float: left;
-    width: 60%;
-    background-color: #C39677;
-    padding: 1.5%;
-	border: 1px solid green;
-	margin: 1.5%;
-	height: 60%;
-text-align: center;
-}
-
-ul li { 
-     width: 75%;
-     text-align: center;
-     list-style-type: none; 	
+.download-all {
+  margin-top: 65%;
+  text-align: center;
 }
 
 /* unvisited link */
 a:link {
-    color: blue;
+  color: blue;
 }
-	
+
 /* visited link */
 a:visited {
- color: black;
+  color: black;
 }
 
-
-
-#List1 {
-
-    margin-top: 83px;
-    /* font-size: 150%; */
- } 
-
- .SelectLocation
- {
-
-    font-size: 150%;
- }
-
- .SelectLocation2 {
-
-    font-size: 150%;
-    padding-top: 1%;
- }
-
- #downloadLink {
-
-    margin-top: 434px;
- }
- ul { 
-    display: block;
-    list-style-type: disc;
-
+ul li { 
+  width: 75%;
+  text-align: center;
+  list-style-type: none; 	
 }

@@ -40,7 +40,7 @@ class App extends Component {
     let distances = [];
     this.state.allStops.forEach(node => {
       let abc = node;
-      abc.difference = Math.abs(node.Latitude-latLong.lat) + Math.abs(node.Longitude-latLong.lng);
+      abc.difference = Math.abs(node.latitude-latLong.lat) + Math.abs(node.longitude-latLong.lng);
       distances.push(abc);
     });
     
@@ -100,7 +100,7 @@ class App extends Component {
   render() {
     return (
       <div className = "App">
-        <div className="SearchBoxComp">
+        <div className="searchBoxComp">
           <h1 className = "text-center searchTitle">
           Enter your Desired location 
           </h1>
@@ -118,11 +118,15 @@ class App extends Component {
           <div className={"resultStops "+ (this.state.nearest.length ? '': 'hide')}>
             <h3>The nearest bus stops to your destination are : </h3>
             {this.state.nearest.map(stop => 
-              <div>{stop.Stop}</div>
+              <div>{stop.stop}</div>
             )}
           </div>
         </div>
-        <Link to="routes"> <div id="AllRoutesHyperlink"> <b> View All Routes</b> </div> </Link>
+        <Link to="routes">
+          <div className="allRoutesHyperlink">
+            <b> View All Routes</b>
+          </div>
+        </Link>
       </div>
     ); 
   }

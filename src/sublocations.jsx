@@ -11,12 +11,17 @@ export class Sublocations extends Component {
         };
     }
 
-    componentDidMount() {
-        fetchResource('sublocations').then((resp) => {
-            this.setState({
-                sublocations: [...new Set(resp.map(item => item.Sublocation))]
-            });
-        });
+    componentDidUpdate(prevProps, prevState) {
+        if(this.props.sublocs.length) {
+            const sublocs = [...new Set(this.props.sublocs.map(item => item.sublocation))]
+            const prevSublocs = [...new Set(prevProps.sublocs.map(item => item.sublocation))]
+            debugger;
+            if(prevSublocs.length !== sublocs.length) {
+                this.setState({
+                    sublocations: sublocs
+                });
+            }
+        }
     }
 
     render() {
@@ -24,8 +29,8 @@ export class Sublocations extends Component {
             <div className="mt-2"> 
                 <b>Please select your sub-location: </b>
                 <select name='List2'>
-                {this.state.sublocations.map(sub => 
-                    <option value={sub}>{sub}</option>
+                {this.state.sublocations.map((sub, i) => 
+                    <option key={i} value={sub}>{sub}</option>
                 )}
                 </select>
             </div>

@@ -5,19 +5,36 @@ import "./styles/App.css";
 
 class Routes extends Component {
 
+    
     constructor(props) {
         super(props);
         this.state = {
-          routes: []
+            routes: [],
+            sublocations: [],
+            busRoute: []
         };
     }
 
     componentDidMount() {
-        fetchResource('allRoutes').then((res)=>{
+        const promises = [
+            fetchResource('allRoutes'),
+            fetchResource('sublocations')
+        ];
+        Promise.all(promises).then((res) => {
+            let busRoutes = [];
+            res[1].forEach((bus)=> {
+                let busRoute = {
+                    busNumber: bus.busNumber,
+                    routes: res[0].filter((stop)=>stop.busNumber===bus.busNumber)
+                }
+                busRoutes.push(busRoute);
+            });
             this.setState({
-                routes: res
+                routes: res[0],
+                sublocations: res[1],
+                busRoutes: busRoutes
             })
-        })
+        });
     }
 
     render() {
@@ -28,53 +45,40 @@ class Routes extends Component {
                     <div className="col-8 pl-5"> 
                         <b>Please select your location: </b>
                         <select name='List1' >
-                            <option value="Gurgaon">Gurgaon</option>
+                            <option value="Gurugram">Gurugram</option>
                             <option value="Bangalore">Bangalore</option>
                         </select>
-                        <Sublocations></Sublocations>
+                        <Sublocations sublocs={this.state.sublocations}></Sublocations>
                     </div>
                     <div className="col-2"></div>
                 </div>
-                <div className="row">
-                    <div className="col-2"></div>
-                    <div className="col-6"></div>
-                    <div className="col-2"></div>
-                </div>
-                 
-                <section>
-                    <nav>
-                        <div>
+                <div className="row p1">
+                    <div className="col-2">
+                        <div className="route-container">
                             <ul>
-                                <div>
-                                    <li><a href="#">Route1</a></li>
-                                    <li><a href="#">Route2</a></li>
-                                    <li><a href="#">Route3</a></li>
-                                    <li><a href="#">Route4</a></li>
-                                    <li><a href="#">Route5</a></li>
-                                    <li><a href="#">Route6</a></li>
-                                    <li><a href="#">Route7</a></li>
-                                    <li><a href="#">Route8</a></li>
-                                    <li><a href="#">Route9</a></li>
-                                    <li><a href="#">Route10</a></li>   
-                                </div>
+                                {this.state.sublocations.map((sub, i) => 
+                                    <li><a key={i}>Route {sub.busNumber}</a></li>
+                                )}
                             </ul>
-                            <br></br>
-                            <b> <a href="#">Download </a> </b>
                         </div>
-                    </nav>
-                    <article>
-                        <center>
-                            <h2 id="downloadLink">
-                                <a href="#">Download All Routes</a>
+                    </div>
+                    <div className="col-8">
+                        <div className="route-container">
+                            <h2 className="download-all">
+                                <a>Download All Routes</a>
                             </h2>
-                        </center>
-                    </article>
-                    <aside>
-                        <li>Stop1</li>
-                        <li>Stop2</li>
-                        <li>Stop3</li>
-                    </aside>
-                </section>
+                        </div>
+                    </div>
+                    <div className="col-2">
+                        <div className="route-container">
+                            <ul>
+                                <li>Stop1</li>
+                                <li>Stop2</li>
+                                <li>Stop3</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
             );
         }
