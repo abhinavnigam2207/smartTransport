@@ -109,9 +109,14 @@ body{
   padding: 1%;
 }
 
+.hand{
+  cursor: pointer;
+}
+
 .route-container{
   background: #C39677;
   padding: 2%;
+  min-height: 100%;
 }
 
 .download-all {

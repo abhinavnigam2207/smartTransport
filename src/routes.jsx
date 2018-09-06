@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import { fetchResource } from './httpCall';
 import { Sublocations } from './sublocations';
 import "./styles/App.css";
@@ -11,7 +12,9 @@ class Routes extends Component {
         this.state = {
             routes: [],
             sublocations: [],
-            busRoute: []
+            busRoute: [],
+            selectedRouteStops: [],
+            allStops: this.props.location.allStops
         };
     }
 
@@ -20,12 +23,17 @@ class Routes extends Component {
             fetchResource('allRoutes'),
             fetchResource('sublocations')
         ];
+        const allStops = this.state.allStops;
         Promise.all(promises).then((res) => {
             let busRoutes = [];
             res[1].forEach((bus)=> {
+                let stopsWithTime = res[0].filter((stop)=>stop.busNumber===bus.busNumber);
+                stopsWithTime.forEach((stop) => { 
+                    stop.pickupTime = allStops.find(o => o.stopId === stop.stopId).pickup;
+                });
                 let busRoute = {
                     busNumber: bus.busNumber,
-                    routes: res[0].filter((stop)=>stop.busNumber===bus.busNumber)
+                    stops: stopsWithTime
                 }
                 busRoutes.push(busRoute);
             });
@@ -37,6 +45,12 @@ class Routes extends Component {
         });
     }
 
+    showStops(sub) {
+        const busRoute = this.state.routes.filter((route) => sub.busNumber === route.busNumber);
+        const selectedRouteStops = busRoute.sort(function(a,b) {return (a.pickupTime > b.pickupTime) ? 1 : ((b.pickupTime > a.pickupTime) ? -1 : 0);} );
+        this.setState({selectedRouteStops});
+    }
+    
     render() {
         return (
             <div className="mt-5">
@@ -57,24 +71,29 @@ class Routes extends Component {
                         <div className="route-container">
                             <ul>
                                 {this.state.sublocations.map((sub, i) => 
-                                    <li><a key={i}>Route {sub.busNumber}</a></li>
+                                    <li className="hand"><a key={i} onClick={this.showStops.bind(this, sub)}>Route {sub.busNumber}</a></li>
                                 )}
                             </ul>
                         </div>
                     </div>
-                    <div className="col-8">
+                    <div className="col-6">
                         <div className="route-container">
                             <h2 className="download-all">
                                 <a>Download All Routes</a>
                             </h2>
+                            <div className="text-center">
+                                <Link to="/">
+                                    <div>Back</div>
+                                </Link>
+                            </div>
                         </div>
                     </div>
-                    <div className="col-2">
+                    <div className="col-4">
                         <div className="route-container">
                             <ul>
-                                <li>Stop1</li>
-                                <li>Stop2</li>
-                                <li>Stop3</li>
+                                {this.state.selectedRouteStops.map((stop,i) => 
+                                    <li key={i}>{stop.pickupTime} - {stop.stop}</li>
+                                )}
                             </ul>
                         </div>
                     </div>

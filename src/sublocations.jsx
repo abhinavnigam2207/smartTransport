@@ -15,7 +15,6 @@ export class Sublocations extends Component {
         if(this.props.sublocs.length) {
             const sublocs = [...new Set(this.props.sublocs.map(item => item.sublocation))]
             const prevSublocs = [...new Set(prevProps.sublocs.map(item => item.sublocation))]
-            debugger;
             if(prevSublocs.length !== sublocs.length) {
                 this.setState({
                     sublocations: sublocs

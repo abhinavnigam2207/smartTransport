@@ -3,12 +3,7 @@ import { Link } from "react-router-dom";
 import PlacesAutocomplete from 'react-places-autocomplete';
 import { fetchResource } from './httpCall';
 import "./styles/App.css";
-
-import {
-  geocodeByAddress,
-  // geocodeByPlaceId,
-  getLatLng
-} from 'react-places-autocomplete';
+import {geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 class App extends Component {
   constructor(props) {
@@ -22,11 +17,18 @@ class App extends Component {
   }
   
   componentDidMount() {
-    fetchResource('stopDetails').then((allStops)=> {
+    const promises = [
+      fetchResource('allRoutes'),
+      fetchResource('stopDetails')
+    ];
+    Promise.all(promises).then((res) => {
+      res[1].forEach((stop)=> {
+        stop.busNumber = res[0].find((busStop) => busStop.stopId === stop.stopId).busNumber
+      });
       this.setState({
-        allStops
+          allStops: res[1]
       })
-    })
+    });
   }
 
   handleChange = address => {
@@ -63,7 +65,7 @@ class App extends Component {
     geocodeByAddress(address)
     .then(results => getLatLng(results[0]))
     .then(latLng => {
-      this.checkFromList('', latLng);
+      this.checkFromList(latLng);
     })
     .catch(error => console.error('Error', error));
   };
@@ -118,11 +120,11 @@ class App extends Component {
           <div className={"resultStops "+ (this.state.nearest.length ? '': 'hide')}>
             <h3>The nearest bus stops to your destination are : </h3>
             {this.state.nearest.map(stop => 
-              <div>{stop.stop}</div>
+              <div>- {stop.stop} where bus Route {stop.busNumber} reaches at {stop.pickup}</div>
             )}
           </div>
         </div>
-        <Link to="routes">
+        <Link to={{ pathname: '/routes', allStops: this.state.allStops }}>
           <div className="allRoutesHyperlink">
             <b> View All Routes</b>
           </div>
